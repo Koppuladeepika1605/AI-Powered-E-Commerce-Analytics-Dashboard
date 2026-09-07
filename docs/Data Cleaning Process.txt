@@ -1,0 +1,1166 @@
+Absolutely. No PDF. Here is the **complete copy-paste version**.
+
+# DATA CLEANING — COMPLETE HANDS-ON PROCESS
+
+## 1. What is Data Cleaning?
+
+**Definition:**
+Data cleaning is the process of identifying and correcting missing, incorrect, inconsistent, duplicate, or improperly formatted data so that the dataset becomes reliable for analysis.
+
+### My Data Cleaning Tools
+
+* **IDE:** VS Code
+* **Language:** Python
+* **Main Library:** Pandas
+* **Numerical Library:** NumPy
+* **Input:** CSV dataset
+* **Output:** Cleaned CSV / Analytics-ready CSV
+
+---
+
+# 2. Open the Project in VS Code
+
+Open the project folder in VS Code.
+
+My project structure:
+
+```text
+AI-Ecommerce-Analytics-Dashboard
+│
+├── Analysis
+│   └── 02_data_cleaning.py
+│
+├── Data
+│   ├── Raw Data
+│   │   └── amazon_sales.csv.csv
+│   │
+│   └── Processed
+│
+├── ML
+├── PowerBI
+├── Sql
+├── backend
+├── frontend
+└── Dashboard
+```
+
+For a new dataset, the important thing is to locate the CSV file.
+
+---
+
+# 3. Open VS Code Terminal
+
+In VS Code:
+
+```text
+Terminal → New Terminal
+```
+
+Make sure the terminal is opened at the project folder.
+
+---
+
+# 4. Check Python Libraries
+
+### Check Pandas
+
+```powershell
+python -c "import pandas; print(pandas.__version__)"
+```
+
+My version:
+
+```text
+2.3.2
+```
+
+### Check NumPy
+
+```powershell
+python -c "import numpy; print(numpy.__version__)"
+```
+
+My version:
+
+```text
+2.2.6
+```
+
+### Interview answer
+
+> “I used Python with Pandas for data manipulation and NumPy for numerical and conditional operations.”
+
+---
+
+# 5. Load the Dataset
+
+The main library is:
+
+```python
+import pandas as pd
+import numpy as np
+```
+
+Basic code:
+
+```python
+df = pd.read_csv("dataset.csv")
+```
+
+In my project:
+
+```python
+df_raw = pd.read_csv(raw_data_path, low_memory=False)
+```
+
+Then:
+
+```python
+df = df_raw.copy()
+```
+
+### Why?
+
+We keep the original raw DataFrame and perform cleaning on a copy.
+
+### Interview answer
+
+> “I first loaded the raw CSV into a Pandas DataFrame and created a working copy so that the original data remained unchanged.”
+
+---
+
+# 6. First Thing to Do With a New Dataset — INSPECT IT
+
+Never immediately start changing data.
+
+First understand the dataset.
+
+## Check number of rows and columns
+
+```python
+print(df.shape)
+```
+
+Example:
+
+```text
+(128975, 24)
+```
+
+Meaning:
+
+```text
+128975 rows
+24 columns
+```
+
+---
+
+## Check column names
+
+```python
+print(df.columns.tolist())
+```
+
+---
+
+## Check first 5 rows
+
+```python
+print(df.head())
+```
+
+---
+
+## Check last 5 rows
+
+```python
+print(df.tail())
+```
+
+---
+
+## Check data types
+
+```python
+print(df.dtypes)
+```
+
+---
+
+## Check basic information
+
+```python
+print(df.info())
+```
+
+---
+
+# 7. Check Missing Values
+
+Use:
+
+```python
+print(df.isnull().sum())
+```
+
+or:
+
+```python
+print(df.isna().sum())
+```
+
+This tells us how many missing values exist in each column.
+
+### Interview answer
+
+> “I checked missing values column by column before deciding how to handle them.”
+
+---
+
+# 8. Check Duplicate Rows
+
+```python
+print(df.duplicated().sum())
+```
+
+If duplicates exist:
+
+```python
+df = df.drop_duplicates()
+```
+
+But don't automatically delete duplicates.
+
+First determine whether they are genuine duplicate records or legitimate repeated transactions.
+
+### Interview answer
+
+> “I checked for duplicate records and removed them only when they represented duplicate observations.”
+
+---
+
+# 9. Clean Column Names
+
+My project used:
+
+```python
+df.columns = [c.strip() for c in df.columns]
+```
+
+This removes unnecessary spaces.
+
+Example:
+
+```text
+" Order ID " → "Order ID"
+```
+
+---
+
+# 10. Remove Unnecessary Columns
+
+My project had export-artifact columns:
+
+```text
+index
+Unnamed: 22
+```
+
+The code was:
+
+```python
+cols_to_drop = ['index', 'Unnamed: 22']
+
+dropped = [c for c in cols_to_drop if c in df.columns]
+
+df.drop(columns=dropped, inplace=True)
+```
+
+### Why?
+
+These columns were not meaningful business fields.
+
+### Important
+
+Do **not** blindly delete columns in a new dataset.
+
+First inspect what they contain.
+
+---
+
+# 11. Rename Columns
+
+My project changed inconsistent column names into standard names.
+
+```python
+column_renaming = {
+    'Order ID': 'Order_ID',
+    'Sales Channel': 'Sales_Channel',
+    'ship-service-level': 'Ship_Service_Level',
+    'Courier Status': 'Courier_Status',
+    'ship-city': 'Ship_City',
+    'ship-state': 'Ship_State',
+    'ship-postal-code': 'Ship_Postal_Code',
+    'ship-country': 'Ship_Country',
+    'promotion-ids': 'Promotion_IDs',
+    'fulfilled-by': 'Fulfilled_By',
+    'Amount': 'Recorded_Amount',
+    'currency': 'Currency'
+}
+
+df.rename(columns=column_renaming, inplace=True)
+```
+
+### Why?
+
+Consistent names make Python, SQL and Power BI easier to work with.
+
+### Interview answer
+
+> “I standardized the column names using a consistent naming convention so that the fields were easier to use during downstream analysis.”
+
+---
+
+# 12. Check Numeric Columns
+
+For a new dataset, identify columns that should contain numbers.
+
+Example:
+
+```python
+print(df['Qty'].dtype)
+```
+
+Convert when necessary:
+
+```python
+df['Qty'] = pd.to_numeric(df['Qty'], errors='coerce')
+```
+
+For amount:
+
+```python
+df['Amount'] = pd.to_numeric(df['Amount'], errors='coerce')
+```
+
+### Why `errors='coerce'`?
+
+Invalid values become missing values instead of crashing the entire conversion.
+
+Then we can inspect those missing values.
+
+---
+
+# 13. Date Cleaning
+
+First convert the date column.
+
+```python
+df['Date'] = pd.to_datetime(
+    df['Date'],
+    errors='coerce'
+)
+```
+
+Check:
+
+```python
+print(df['Date'].dtype)
+```
+
+Expected:
+
+```text
+datetime64[ns]
+```
+
+---
+
+# 14. Create Date Columns
+
+My project created:
+
+```text
+Year
+Month
+Month_Name
+Week
+Day
+Day_Name
+```
+
+Code:
+
+```python
+df['Year'] = df['Date'].dt.year
+
+df['Month'] = df['Date'].dt.month
+
+df['Month_Name'] = df['Date'].dt.month_name()
+
+df['Week'] = df['Date'].dt.isocalendar().week
+
+df['Day'] = df['Date'].dt.day
+
+df['Day_Name'] = df['Date'].dt.day_name()
+```
+
+### Example
+
+If:
+
+```text
+Date = 2022-04-15
+```
+
+Then:
+
+```text
+Year       = 2022
+Month      = 4
+Month_Name = April
+Day        = 15
+Day_Name   = Friday
+```
+
+### Why?
+
+These fields make time-based analysis easier.
+
+---
+
+# 15. Standardize Text Columns
+
+Suppose the dataset has:
+
+```text
+Electronics
+ electronics
+ELECTRONICS
+```
+
+These could be treated as different values.
+
+We can clean them:
+
+```python
+df['Category'] = (
+    df['Category']
+    .astype('string')
+    .str.strip()
+)
+```
+
+And if appropriate:
+
+```python
+df['Category'] = df['Category'].str.title()
+```
+
+Result:
+
+```text
+Electronics
+Electronics
+Electronics
+```
+
+### Interview answer
+
+> “I standardized text fields by removing unnecessary whitespace and normalizing categorical values so that equivalent values were grouped together.”
+
+---
+
+# 16. Standardize Categories
+
+Check unique values:
+
+```python
+print(df['Category'].unique())
+```
+
+Check frequency:
+
+```python
+print(df['Category'].value_counts())
+```
+
+This helps identify spelling or formatting problems.
+
+For example:
+
+```text
+Electronics
+electronics
+ELECTRONICS
+```
+
+can be standardized.
+
+---
+
+# 17. Handle Missing Values
+
+First:
+
+```python
+print(df.isnull().sum())
+```
+
+Then decide what to do **based on the meaning of the column**.
+
+### Example — categorical field
+
+My project:
+
+```text
+Courier_Status → Unassigned
+```
+
+Conceptually:
+
+```python
+df['Courier_Status'] = (
+    df['Courier_Status']
+    .fillna('Unassigned')
+)
+```
+
+### Example — currency
+
+My project used:
+
+```text
+Currency → INR
+```
+
+when the currency was missing.
+
+### Example — numeric amount
+
+My project used:
+
+```python
+df['Gross_Amount'] = df['Recorded_Amount'].fillna(0.0)
+```
+
+### VERY IMPORTANT
+
+Do not say:
+
+> “I replace all missing values with zero.”
+
+Instead say:
+
+> “I handled missing values according to the business meaning of each field.”
+
+---
+
+# 18. Geographic Data Cleaning
+
+My project had inconsistent state names.
+
+For example, a dataset could contain:
+
+```text
+AP
+Andhra Pradesh
+Andhra Pradesh 
+```
+
+We can create a mapping:
+
+```python
+state_map = {
+    'AP': 'Andhra Pradesh',
+    'Andhra Pradesh ': 'Andhra Pradesh'
+}
+
+df['Ship_State'] = df['Ship_State'].replace(state_map)
+```
+
+My actual project standardized messy state variants into official Indian States/UTs.
+
+### Interview answer
+
+> “I normalized geographic values so that different spellings or abbreviations representing the same state would not appear as separate categories during analysis.”
+
+---
+
+# 19. Postal/PIN Code Validation
+
+My project contains:
+
+```text
+Ship_Postal_Code
+Is_Valid_PIN
+```
+
+The purpose is to validate whether a postal code follows the expected format.
+
+For a new dataset, don't assume the format.
+
+First determine:
+
+* How many digits?
+* Can leading zeros exist?
+* Are letters allowed?
+* What country/region is involved?
+
+Then create a validation flag if appropriate.
+
+Concept:
+
+```text
+Postal Code → Clean Postal Code → Is_Valid
+```
+
+---
+
+# 20. Create Business Flags
+
+This is an important part of my project.
+
+Instead of repeatedly analyzing raw status values, I created useful Boolean columns.
+
+## Is_Cancelled
+
+```python
+df['Is_Cancelled'] = (
+    df['Status'] == 'Cancelled'
+)
+```
+
+Result:
+
+```text
+True
+False
+False
+True
+```
+
+---
+
+## Is_Delivered
+
+```python
+df['Is_Delivered'] = (
+    df['Status'] == 'Shipped - Delivered to Buyer'
+)
+```
+
+---
+
+## Is_B2B
+
+My project used:
+
+```python
+df['Is_B2B'] = df['B2B']
+```
+
+---
+
+## Has_Promotion
+
+```python
+df['Has_Promotion'] = (
+    df['Promotion_IDs'] != 'No Promotion'
+)
+```
+
+---
+
+# 21. Returned Orders
+
+My project also created:
+
+```text
+Is_Returned
+```
+
+based on the project's returned/returning/rejected status rules.
+
+The important concept is:
+
+> “I converted relevant status values into a Boolean flag so returned orders could easily be filtered and analyzed.”
+
+---
+
+# 22. Realized Revenue
+
+This is one of the most important project-specific transformations.
+
+The project distinguishes:
+
+```text
+Gross_Amount
+```
+
+from:
+
+```text
+Realized_Revenue
+```
+
+The project defines certain statuses as non-realized:
+
+```python
+non_realized_statuses = {
+    'Cancelled',
+    'Shipped - Returned to Seller',
+    'Shipped - Returning to Seller',
+    'Shipped - Rejected by Buyer',
+    'Shipped - Lost in Transit',
+    'Shipped - Damaged',
+    'Shipping'
+}
+```
+
+Then the condition is:
+
+```python
+condition = (
+    ~df['Status'].isin(non_realized_statuses)
+    & (df['Qty'] > 0)
+    & (df['Gross_Amount'] > 0)
+)
+```
+
+Then:
+
+```python
+df['Realized_Revenue'] = np.where(
+    condition,
+    df['Gross_Amount'],
+    0.0
+)
+```
+
+And:
+
+```python
+df['Is_Realized'] = condition
+```
+
+### Interview answer
+
+> “I created a Realized Revenue field using business rules. Transactions with non-realized statuses were excluded, and I also required positive quantity and positive gross amount.”
+
+### IMPORTANT
+
+This is **specific to my Amazon project**.
+
+If an interviewer gives you another dataset, don't automatically use these statuses.
+
+Ask/understand:
+
+> “What does the business consider a realized sale?”
+
+Then create the appropriate rule.
+
+---
+
+# 23. Check Data Quality After Cleaning
+
+After cleaning, check:
+
+## Shape
+
+```python
+print(df.shape)
+```
+
+## Columns
+
+```python
+print(df.columns.tolist())
+```
+
+## First rows
+
+```python
+print(df.head())
+```
+
+## Missing values
+
+```python
+print(df.isnull().sum())
+```
+
+## Duplicates
+
+```python
+print(df.duplicated().sum())
+```
+
+## Data types
+
+```python
+print(df.dtypes)
+```
+
+---
+
+# 24. Save Cleaned Dataset
+
+My project saved:
+
+```text
+amazon_sales_cleaned.csv
+```
+
+Code:
+
+```python
+clean_csv_path = os.path.join(
+    output_dir,
+    'amazon_sales_cleaned.csv'
+)
+
+df.to_csv(
+    clean_csv_path,
+    index=False
+)
+```
+
+---
+
+# 25. Create Analytics-Ready Dataset
+
+My project selected the required columns:
+
+```python
+analytics_columns = [
+    'Order_ID',
+    'Date',
+    'Year',
+    'Month',
+    'Month_Name',
+    'Week',
+    'Day',
+    'Day_Name',
+    'Status',
+    'Courier_Status',
+    'Fulfilment',
+    'Fulfilled_By',
+    'Sales_Channel',
+    'Ship_Service_Level',
+    'Category',
+    'Size',
+    'Style',
+    'SKU',
+    'ASIN',
+    'Qty',
+    'Currency',
+    'Recorded_Amount',
+    'Gross_Amount',
+    'Realized_Revenue',
+    'Ship_City',
+    'Ship_State',
+    'Ship_Postal_Code',
+    'Ship_Country',
+    'Promotion_IDs',
+    'Has_Promotion',
+    'Is_B2B',
+    'Is_Cancelled',
+    'Is_Delivered',
+    'Is_Returned',
+    'Is_Realized',
+    'Is_Valid_PIN'
+]
+```
+
+Then:
+
+```python
+df_analytics = df[analytics_columns]
+```
+
+Save:
+
+```python
+analytics_csv_path = os.path.join(
+    output_dir,
+    'amazon_sales_analytics.csv'
+)
+
+df_analytics.to_csv(
+    analytics_csv_path,
+    index=False
+)
+```
+
+---
+
+# 26. Run the Complete Cleaning Script
+
+My actual project command:
+
+```powershell
+python Analysis/02_data_cleaning.py
+```
+
+Successful output:
+
+```text
+DATA CLEANING PIPELINE COMPLETED SUCCESSFULLY!
+```
+
+---
+
+# 27. Complete Process in One Flow
+
+When an interviewer says:
+
+> **“Here is a dataset. Clean it.”**
+
+Think:
+
+```text
+1. Load dataset
+       ↓
+2. Inspect dataset
+       ↓
+3. Check shape
+       ↓
+4. Check columns
+       ↓
+5. Check first rows
+       ↓
+6. Check data types
+       ↓
+7. Check missing values
+       ↓
+8. Check duplicates
+       ↓
+9. Clean column names
+       ↓
+10. Remove unnecessary columns
+       ↓
+11. Rename columns
+       ↓
+12. Convert data types
+       ↓
+13. Clean dates
+       ↓
+14. Create date features
+       ↓
+15. Standardize text/categories
+       ↓
+16. Handle missing values
+       ↓
+17. Validate important fields
+       ↓
+18. Create business-rule columns
+       ↓
+19. Check data quality again
+       ↓
+20. Save cleaned dataset
+       ↓
+21. Verify final dataset
+```
+
+---
+
+# 28. One Script You Can Practice on a NEW Dataset
+
+When you are given a completely new CSV, start with this:
+
+```python
+import pandas as pd
+import numpy as np
+
+# 1. Load dataset
+df = pd.read_csv("new_dataset.csv")
+
+# 2. Inspect
+print("Shape:", df.shape)
+
+print("\nColumns:")
+print(df.columns.tolist())
+
+print("\nFirst 5 rows:")
+print(df.head())
+
+print("\nData types:")
+print(df.dtypes)
+
+print("\nMissing values:")
+print(df.isnull().sum())
+
+print("\nDuplicate rows:")
+print(df.duplicated().sum())
+
+# 3. Clean column names
+df.columns = [c.strip() for c in df.columns]
+
+# 4. Remove duplicates if they are confirmed duplicates
+# df = df.drop_duplicates()
+
+# 5. Example numeric conversion
+# df['Amount'] = pd.to_numeric(
+#     df['Amount'],
+#     errors='coerce'
+# )
+
+# 6. Example date conversion
+# df['Date'] = pd.to_datetime(
+#     df['Date'],
+#     errors='coerce'
+# )
+
+# 7. Example text cleaning
+# df['Category'] = (
+#     df['Category']
+#     .astype('string')
+#     .str.strip()
+# )
+
+# 8. Check cleaned data
+print("\nFinal shape:", df.shape)
+
+print("\nFinal missing values:")
+print(df.isnull().sum())
+
+print("\nFinal duplicates:")
+print(df.duplicated().sum())
+
+# 9. Save
+df.to_csv(
+    "cleaned_dataset.csv",
+    index=False
+)
+
+print("\nDATA CLEANING COMPLETED SUCCESSFULLY!")
+```
+
+**Don't run every commented example blindly.** Uncomment the relevant parts after inspecting the new dataset.
+
+---
+
+# 29. ALL IMPORTANT TERMINAL COMMANDS
+
+Keep this section separately because you may need it during the interview.
+
+### Check Pandas
+
+```powershell
+python -c "import pandas; print(pandas.__version__)"
+```
+
+### Check NumPy
+
+```powershell
+python -c "import numpy; print(numpy.__version__)"
+```
+
+### Run cleaning script
+
+```powershell
+python Analysis/02_data_cleaning.py
+```
+
+### Run a Python script
+
+```powershell
+python filename.py
+```
+
+### Install Pandas if unavailable
+
+```powershell
+pip install pandas
+```
+
+### Install NumPy if unavailable
+
+```powershell
+pip install numpy
+```
+
+---
+
+# 30. MOST IMPORTANT INTERVIEW QUESTIONS
+
+### Q1. What is data cleaning?
+
+> “Data cleaning is the process of identifying and correcting missing, inconsistent, duplicate, invalid or incorrectly formatted data so that it can be reliably used for analysis.”
+
+### Q2. Which tools did you use?
+
+> “I used VS Code, Python, Pandas and NumPy.”
+
+### Q3. What did you do first?
+
+> “I first inspected the dataset by checking its shape, columns, sample rows, data types, missing values and duplicates.”
+
+### Q4. How did you handle missing values?
+
+> “I handled missing values based on the meaning of each field rather than applying one rule to every column.”
+
+### Q5. Why did you rename columns?
+
+> “To make the column names consistent and easier to use during Python, SQL and Power BI analysis.”
+
+### Q6. How did you handle categorical data?
+
+> “I checked unique values, removed unnecessary whitespace and standardized equivalent category values.”
+
+### Q7. How did you handle dates?
+
+> “I converted the date column into a proper datetime type and derived Year, Month, Week, Day and other useful time fields.”
+
+### Q8. How did you handle duplicates?
+
+> “I checked for duplicate rows and removed them only when they represented actual duplicate records.”
+
+### Q9. What derived columns did you create?
+
+> “In my project I created fields such as Is_Cancelled, Is_Delivered, Is_Returned, Is_B2B, Has_Promotion, Is_Realized and Realized_Revenue.”
+
+### Q10. Why did you create Is_Cancelled?
+
+> “It converts the cancellation business rule into a simple Boolean field that can easily be used for analysis and visualization.”
+
+### Q11. What is Realized Revenue?
+
+> “In my project, Realized Revenue represents revenue from transactions that satisfy the project's business rules for a realized sale, excluding specified non-realized statuses and requiring positive quantity and amount.”
+
+### Q12. How do you verify your cleaning?
+
+> “I check the final shape, columns, data types, missing values, duplicates and important business rules, and then save the validated dataset.”
+
+---
+
+# ⭐ 31. THE MOST IMPORTANT THING TO MEMORIZE
+
+Don't memorize 500 lines of Python.
+
+Memorize this:
+
+> **LOAD → INSPECT → CLEAN → STANDARDIZE → HANDLE MISSING VALUES → VALIDATE → TRANSFORM → SAVE → VERIFY**
+
+And remember **WHY** you do each step.
+
+If the interviewer gives you a new dataset, your first move should **not** be to start deleting columns.
+
+Your first move should be:
+
+```python
+df = pd.read_csv("new_dataset.csv")
+
+print(df.shape)
+print(df.head())
+print(df.columns)
+print(df.dtypes)
+print(df.isnull().sum())
+print(df.duplicated().sum())
+```
+
+Then you decide what actually needs cleaning.
+
+That is the difference between **memorizing a cleaning script** and being able to **actually perform data cleaning in an interview**.

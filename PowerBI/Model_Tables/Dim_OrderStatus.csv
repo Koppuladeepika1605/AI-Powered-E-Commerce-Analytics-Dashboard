@@ -1,0 +1,28 @@
+Status_ID,Status,Courier_Status,Fulfilment,Fulfilled_By,Sales_Channel,Ship_Service_Level
+1,Cancelled,Unassigned,Merchant,Easy Ship,Amazon.in,Standard
+2,Shipped - Delivered to Buyer,Shipped,Merchant,Easy Ship,Amazon.in,Standard
+3,Shipped,Shipped,Amazon,Not Applicable,Amazon.in,Expedited
+4,Cancelled,Cancelled,Amazon,Not Applicable,Amazon.in,Expedited
+5,Cancelled,Unshipped,Amazon,Not Applicable,Amazon.in,Expedited
+6,Shipped,Shipped,Amazon,Not Applicable,Amazon.in,Standard
+7,Shipped - Returned to Seller,Shipped,Merchant,Easy Ship,Amazon.in,Standard
+8,Shipped - Rejected by Buyer,Shipped,Merchant,Easy Ship,Amazon.in,Standard
+9,Cancelled,Cancelled,Amazon,Not Applicable,Amazon.in,Standard
+10,Shipped,Unshipped,Amazon,Not Applicable,Non-Amazon,Standard
+11,Shipped,Cancelled,Amazon,Not Applicable,Amazon.in,Expedited
+12,Shipped - Lost in Transit,Shipped,Merchant,Easy Ship,Amazon.in,Standard
+13,Cancelled,Unshipped,Amazon,Not Applicable,Non-Amazon,Standard
+14,Shipped - Out for Delivery,Shipped,Merchant,Easy Ship,Amazon.in,Standard
+15,Shipped - Returning to Seller,Shipped,Merchant,Easy Ship,Amazon.in,Standard
+16,Shipped - Delivered to Buyer,Unassigned,Merchant,Easy Ship,Amazon.in,Standard
+17,Cancelled,Unshipped,Amazon,Not Applicable,Amazon.in,Standard
+18,Shipped - Picked Up,Shipped,Merchant,Easy Ship,Amazon.in,Standard
+19,Pending,Unshipped,Amazon,Not Applicable,Amazon.in,Expedited
+20,Pending,Cancelled,Amazon,Not Applicable,Amazon.in,Expedited
+21,Pending,Shipped,Amazon,Not Applicable,Amazon.in,Expedited
+22,Shipped - Returned to Seller,Unassigned,Merchant,Easy Ship,Amazon.in,Standard
+23,Pending,Unshipped,Merchant,Easy Ship,Amazon.in,Standard
+24,Pending,Unshipped,Amazon,Not Applicable,Amazon.in,Standard
+25,Pending - Waiting for Pick Up,Unshipped,Merchant,Easy Ship,Amazon.in,Standard
+26,Shipped - Damaged,Shipped,Merchant,Easy Ship,Amazon.in,Standard
+27,Shipping,Unshipped,Amazon,Not Applicable,Non-Amazon,Standard

@@ -1,0 +1,30 @@
+[
+  {
+    "Model": "1. Seasonal Baseline (Lag-7)",
+    "MAE (INR)": 14630.35,
+    "RMSE (INR)": 27495.05,
+    "R2 Score": 0.9309,
+    "MAPE (%)": 54.91
+  },
+  {
+    "Model": "2. Ridge Linear Regression",
+    "MAE (INR)": 9861.69,
+    "RMSE (INR)": 20133.32,
+    "R2 Score": 0.963,
+    "MAPE (%)": 75.56
+  },
+  {
+    "Model": "3. Random Forest Regressor",
+    "MAE (INR)": 11667.58,
+    "RMSE (INR)": 23094.51,
+    "R2 Score": 0.9513,
+    "MAPE (%)": 73.99
+  },
+  {
+    "Model": "4. Gradient Boosting Regressor",
+    "MAE (INR)": 11730.51,
+    "RMSE (INR)": 22649.32,
+    "R2 Score": 0.9531,
+    "MAPE (%)": 56.89
+  }
+]

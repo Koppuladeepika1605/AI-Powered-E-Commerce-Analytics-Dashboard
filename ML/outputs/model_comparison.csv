@@ -1,0 +1,5 @@
+Model,MAE (INR),RMSE (INR),R2 Score,MAPE (%)
+1. Seasonal Baseline (Lag-7),14630.35,27495.05,0.9309,54.91
+2. Ridge Linear Regression,9861.69,20133.32,0.963,75.56
+3. Random Forest Regressor,11667.58,23094.51,0.9513,73.99
+4. Gradient Boosting Regressor,11730.51,22649.32,0.9531,56.89

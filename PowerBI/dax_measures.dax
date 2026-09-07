@@ -1,0 +1,27 @@
+AI-POWERED E-COMMERCE ANALYTICS DASHBOARD
+
+
+Table: _Measures (Dedicated Measures Table)
+Dataset: amazon_sales (128,975 rows)
+Currency: INR (₹)
+
+
+ 1. Executive Overview — KPI Card
+
+Total Realized Revenue =
+SUM(Fact_AmazonSales[Realized_Revenue])
+
+
+Total Orders =
+DISTINCTCOUNT(Fact_AmazonSales[Order_ID])
+
+
+Cancellation Rate % =
+DIVIDE(
+    CALCULATE(
+        COUNTROWS(Fact_AmazonSales),
+        Fact_AmazonSales[Is_Cancelled] = TRUE
+    ),
+    COUNTROWS(Fact_AmazonSales),
+    0
+)

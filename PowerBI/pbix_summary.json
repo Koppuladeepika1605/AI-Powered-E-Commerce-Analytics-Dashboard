@@ -1,0 +1,881 @@
+[
+  {
+    "page_number": 1,
+    "id": "c3835dd50b799c8adc68",
+    "displayName": "Executive Overview",
+    "width": 1920,
+    "height": 1080,
+    "visuals": [
+      {
+        "type": "cardVisual",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Data": [
+            "Measure(Total Orders)"
+          ]
+        },
+        "raw_query_state": {
+          "Data": {
+            "projections": [
+              {
+                "field": {
+                  "Measure": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_AmazonSales"
+                      }
+                    },
+                    "Property": "Total Orders"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Total Orders",
+                "nativeQueryRef": "Total Orders"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "lineChart",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Category": [
+            "HierarchyLevel(Year)",
+            "HierarchyLevel(Quarter)",
+            "HierarchyLevel(Month)",
+            "HierarchyLevel(Day)"
+          ],
+          "Y": [
+            "Sum(Fact_AmazonSales.Realized_Revenue)"
+          ]
+        },
+        "raw_query_state": {
+          "Category": {
+            "projections": [
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Dim_Date"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Year"
+                  }
+                },
+                "queryRef": "Dim_Date.Date.Variation.Date Hierarchy.Year",
+                "nativeQueryRef": "Date Year",
+                "active": true
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Dim_Date"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Quarter"
+                  }
+                },
+                "queryRef": "Dim_Date.Date.Variation.Date Hierarchy.Quarter",
+                "nativeQueryRef": "Date Quarter",
+                "active": false
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Dim_Date"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Month"
+                  }
+                },
+                "queryRef": "Dim_Date.Date.Variation.Date Hierarchy.Month",
+                "nativeQueryRef": "Date Month",
+                "active": false
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Dim_Date"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Day"
+                  }
+                },
+                "queryRef": "Dim_Date.Date.Variation.Date Hierarchy.Day",
+                "nativeQueryRef": "Date Day",
+                "active": false
+              }
+            ]
+          },
+          "Y": {
+            "projections": [
+              {
+                "field": {
+                  "Aggregation": {
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Fact_AmazonSales"
+                          }
+                        },
+                        "Property": "Realized_Revenue"
+                      }
+                    },
+                    "Function": 0
+                  }
+                },
+                "queryRef": "Sum(Fact_AmazonSales.Realized_Revenue)",
+                "nativeQueryRef": "Sum of Realized_Revenue"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "listSlicer",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Values": [
+            "HierarchyLevel(Year)",
+            "HierarchyLevel(Quarter)",
+            "HierarchyLevel(Month)",
+            "HierarchyLevel(Day)"
+          ]
+        },
+        "raw_query_state": {
+          "Values": {
+            "projections": [
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Fact_AmazonSales"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Year"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Date.Variation.Date Hierarchy.Year",
+                "nativeQueryRef": "Date Year",
+                "active": true
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Fact_AmazonSales"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Quarter"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Date.Variation.Date Hierarchy.Quarter",
+                "nativeQueryRef": "Date Quarter",
+                "active": true
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Fact_AmazonSales"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Month"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Date.Variation.Date Hierarchy.Month",
+                "nativeQueryRef": "Date Month",
+                "active": false
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Fact_AmazonSales"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Day"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Date.Variation.Date Hierarchy.Day",
+                "nativeQueryRef": "Date Day",
+                "active": false
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "clusteredBarChart",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Category": [
+            "Column(Category)"
+          ],
+          "Y": [
+            "Sum(Fact_AmazonSales.Realized_Revenue)"
+          ]
+        },
+        "raw_query_state": {
+          "Category": {
+            "projections": [
+              {
+                "field": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Dim_Product"
+                      }
+                    },
+                    "Property": "Category"
+                  }
+                },
+                "queryRef": "Dim_Product.Category",
+                "nativeQueryRef": "Category",
+                "active": true
+              }
+            ]
+          },
+          "Y": {
+            "projections": [
+              {
+                "field": {
+                  "Aggregation": {
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Fact_AmazonSales"
+                          }
+                        },
+                        "Property": "Realized_Revenue"
+                      }
+                    },
+                    "Function": 0
+                  }
+                },
+                "queryRef": "Sum(Fact_AmazonSales.Realized_Revenue)",
+                "nativeQueryRef": "Sum of Realized_Revenue"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "cardVisual",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Data": [
+            "Measure(Cancellation Rate %)"
+          ]
+        },
+        "raw_query_state": {
+          "Data": {
+            "projections": [
+              {
+                "field": {
+                  "Measure": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_AmazonSales"
+                      }
+                    },
+                    "Property": "Cancellation Rate %"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Cancellation Rate %",
+                "nativeQueryRef": "Cancellation Rate %"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "cardVisual",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Data": [
+            "Sum(Fact_AmazonSales.Realized_Revenue)"
+          ]
+        },
+        "raw_query_state": {
+          "Data": {
+            "projections": [
+              {
+                "field": {
+                  "Aggregation": {
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Fact_AmazonSales"
+                          }
+                        },
+                        "Property": "Realized_Revenue"
+                      }
+                    },
+                    "Function": 0
+                  }
+                },
+                "queryRef": "Sum(Fact_AmazonSales.Realized_Revenue)",
+                "nativeQueryRef": "Sum of Realized_Revenue"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "page_number": 2,
+    "id": "7381e58daf0911830f5c",
+    "displayName": "Regional & Product Analysis",
+    "width": 1920,
+    "height": 1080,
+    "visuals": [
+      {
+        "type": "listSlicer",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Values": [
+            "HierarchyLevel(Year)",
+            "HierarchyLevel(Quarter)",
+            "HierarchyLevel(Month)",
+            "HierarchyLevel(Day)"
+          ]
+        },
+        "raw_query_state": {
+          "Values": {
+            "projections": [
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Dim_Date"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Year"
+                  }
+                },
+                "queryRef": "Dim_Date.Date.Variation.Date Hierarchy.Year",
+                "nativeQueryRef": "Date Year",
+                "active": true
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Dim_Date"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Quarter"
+                  }
+                },
+                "queryRef": "Dim_Date.Date.Variation.Date Hierarchy.Quarter",
+                "nativeQueryRef": "Date Quarter",
+                "active": true
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Dim_Date"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Month"
+                  }
+                },
+                "queryRef": "Dim_Date.Date.Variation.Date Hierarchy.Month",
+                "nativeQueryRef": "Date Month",
+                "active": false
+              },
+              {
+                "field": {
+                  "HierarchyLevel": {
+                    "Expression": {
+                      "Hierarchy": {
+                        "Expression": {
+                          "PropertyVariationSource": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Dim_Date"
+                              }
+                            },
+                            "Name": "Variation",
+                            "Property": "Date"
+                          }
+                        },
+                        "Hierarchy": "Date Hierarchy"
+                      }
+                    },
+                    "Level": "Day"
+                  }
+                },
+                "queryRef": "Dim_Date.Date.Variation.Date Hierarchy.Day",
+                "nativeQueryRef": "Date Day",
+                "active": false
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "clusteredBarChart",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Category": [
+            "Column(Realized_Revenue)"
+          ],
+          "Y": [
+            "CountNonNull(Dim_Product.Style)"
+          ]
+        },
+        "raw_query_state": {
+          "Category": {
+            "projections": [
+              {
+                "field": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_AmazonSales"
+                      }
+                    },
+                    "Property": "Realized_Revenue"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Realized_Revenue",
+                "nativeQueryRef": "Sum of Realized_Revenue",
+                "active": true
+              }
+            ]
+          },
+          "Y": {
+            "projections": [
+              {
+                "field": {
+                  "Aggregation": {
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Dim_Product"
+                          }
+                        },
+                        "Property": "Style"
+                      }
+                    },
+                    "Function": 5
+                  }
+                },
+                "queryRef": "CountNonNull(Dim_Product.Style)",
+                "nativeQueryRef": "Style"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "clusteredBarChart",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Category": [
+            "Column(Ship_State)"
+          ],
+          "Y": [
+            "Sum(Fact_AmazonSales.Realized_Revenue)"
+          ]
+        },
+        "raw_query_state": {
+          "Category": {
+            "projections": [
+              {
+                "field": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Dim_Geography"
+                      }
+                    },
+                    "Property": "Ship_State"
+                  }
+                },
+                "queryRef": "Dim_Geography.Ship_State",
+                "nativeQueryRef": "Ship_State",
+                "active": true
+              }
+            ]
+          },
+          "Y": {
+            "projections": [
+              {
+                "field": {
+                  "Aggregation": {
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Fact_AmazonSales"
+                          }
+                        },
+                        "Property": "Realized_Revenue"
+                      }
+                    },
+                    "Function": 0
+                  }
+                },
+                "queryRef": "Sum(Fact_AmazonSales.Realized_Revenue)",
+                "nativeQueryRef": "Sum of Realized_Revenue"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "page_number": 3,
+    "id": "8d4e4aadf05620610502",
+    "displayName": "Operations Analysis",
+    "width": 1920,
+    "height": 1080,
+    "visuals": [
+      {
+        "type": "cardVisual",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Data": [
+            "Measure(Cancellation Rate %)"
+          ]
+        },
+        "raw_query_state": {
+          "Data": {
+            "projections": [
+              {
+                "field": {
+                  "Measure": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_AmazonSales"
+                      }
+                    },
+                    "Property": "Cancellation Rate %"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Cancellation Rate %",
+                "nativeQueryRef": "Cancellation Rate %"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "clusteredColumnChart",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Category": [
+            "Column(Courier_Status)"
+          ],
+          "Y": [
+            "Sum(Fact_AmazonSales.Realized_Revenue)"
+          ]
+        },
+        "raw_query_state": {
+          "Category": {
+            "projections": [
+              {
+                "field": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_AmazonSales"
+                      }
+                    },
+                    "Property": "Courier_Status"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Courier_Status",
+                "nativeQueryRef": "Courier_Status",
+                "active": true
+              }
+            ]
+          },
+          "Y": {
+            "projections": [
+              {
+                "field": {
+                  "Aggregation": {
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Fact_AmazonSales"
+                          }
+                        },
+                        "Property": "Realized_Revenue"
+                      }
+                    },
+                    "Function": 0
+                  }
+                },
+                "queryRef": "Sum(Fact_AmazonSales.Realized_Revenue)",
+                "nativeQueryRef": "Sum of Realized_Revenue"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "donutChart",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Category": [
+            "Column(Courier_Status)"
+          ],
+          "Y": [
+            "Measure(Total Orders)"
+          ]
+        },
+        "raw_query_state": {
+          "Category": {
+            "projections": [
+              {
+                "field": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Dim_OrderStatus"
+                      }
+                    },
+                    "Property": "Courier_Status"
+                  }
+                },
+                "queryRef": "Dim_OrderStatus.Courier_Status",
+                "nativeQueryRef": "Courier_Status",
+                "active": true
+              }
+            ]
+          },
+          "Y": {
+            "projections": [
+              {
+                "field": {
+                  "Measure": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_AmazonSales"
+                      }
+                    },
+                    "Property": "Total Orders"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Total Orders",
+                "nativeQueryRef": "Total Orders"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "clusteredColumnChart",
+        "title": null,
+        "position": {},
+        "fields": {
+          "Category": [
+            "Column(Fulfilment)"
+          ],
+          "Y": [
+            "Measure(Total Orders)"
+          ]
+        },
+        "raw_query_state": {
+          "Category": {
+            "projections": [
+              {
+                "field": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_AmazonSales"
+                      }
+                    },
+                    "Property": "Fulfilment"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Fulfilment",
+                "nativeQueryRef": "Fulfilment",
+                "active": true
+              }
+            ]
+          },
+          "Y": {
+            "projections": [
+              {
+                "field": {
+                  "Measure": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Fact_AmazonSales"
+                      }
+                    },
+                    "Property": "Total Orders"
+                  }
+                },
+                "queryRef": "Fact_AmazonSales.Total Orders",
+                "nativeQueryRef": "Total Orders"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

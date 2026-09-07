@@ -1,0 +1,16 @@
+PHASE 3.1 — INITIAL DATASET INSPECTION SUMMARY
+============================================================
+
+Dataset Path:       c:\Users\kbhan\OneDrive\Desktop\Projects\AI-Ecommerce-Analytics-Dashboard\Data\Processed\amazon_sales_analytics.csv
+Total Rows:         128,975
+Total Columns:      ['Year', 'Month', 'Week', 'Day', 'Qty', 'Recorded_Amount', 'Gross_Amount', 'Realized_Revenue']
+Unique Orders:      120,378
+Date Range:         2022-03-31 to 2022-06-29 (90 days)
+Gross Amount:       INR 78,592,678.30
+Realized Revenue:   INR 70,285,702.00
+Invariant Check:    Realized_Revenue <= Gross_Amount (0 violations, 0.00%)
+Missing Values:     0 in processed analytics columns (7,795 preserved in raw Recorded_Amount audit column)
+Full Duplicates:    0
+Valid PIN Codes:    128,942 (99.97%)
+
+Status: Phase 3.1 Inspection Completed Successfully!
